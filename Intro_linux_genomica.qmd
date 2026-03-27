@@ -280,14 +280,14 @@ minmaf=0.05
 OUT=
 
 vcftools --gzvcf $VCF \
-	--min-alleles 2 --max-alleles 2 \
-	--min-meanDP $mindp --minDP $mindp \
-	--max-missing $maxmiss --maf $minmaf \
-	--out $OUT \
-	--recode --recode-INFO-all \
-	--stdout | bgzip -c > $OUT
+    --min-alleles 2 --max-alleles 2 \
+    --min-meanDP $mindp --minDP $mindp \
+    --max-missing $maxmiss --maf $minmaf \
+    --out $OUT \
+    --recode --recode-INFO-all \
+    --stdout | bgzip -c > $OUT
 
-	tabix $OUT
+    tabix $OUT
 ```
 
 ### PCA
