@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /home/efigueroa/miniforge3/etc/profile.d/conda.sh
+source /home/efigueroa/miniforge3/etc/profile.d/conda.sh ## Update to conda
 conda activate popgen
 
 vcftools_filtering(){
