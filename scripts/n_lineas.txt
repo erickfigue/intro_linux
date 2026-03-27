@@ -1,0 +1,8 @@
+  45 PCA.sh
+  45 PCA2.sh
+  17 download_chr21.sh
+  19 plot_vcftools_stats.sh
+  22 subset_chr21.sh
+  56 vcftools_filtering_snps.sh
+  41 vcftools_stats.sh
+ 245 total
