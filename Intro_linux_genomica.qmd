@@ -269,22 +269,6 @@ Además de conservar solo SNPs, adicionalmente podemos filtrar el archivo VCF en
 
 En esta etapa se han llevado a cabo otros pasos de filtrado de calidad de los reads y de los archivos de alineamiento. Dependiendo del tipo de información que uno genera y de la fuente también se pueden considerar otros parámetros, especialmente cuando se trabaja con genomas colectado de poblaciones.
 
-La data original se descargo siguiendo los pasos descritos en el script (github de Alex)
-
-Originalmente se decarga como VCF, pero debido a que es un archivo demasiado grande se convierte a formato bed, este ya no tiene información de depth o quality
-
-Revisando el archivo VCF
-
-algunas estadísticas del archivo de variantes
-
-Data faltante, covertura, frecuencia alélica, etc
-
-Esta data ya pasó control de calidad, por lo cual no es necesario pasar por esos pasos.
-
--   Data faltante, Cobertura, minor allele frequency
-
-Un analisis inicial que podemos hacer es un PCA
-
 ### PCA
 
 Primero filtraremos la data para reducir el numero de SNPs para filtrar los que están en LD

@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="archivo-de-variantes-vcf" class="level4">
 <h4 class="anchored" data-anchor-id="archivo-de-variantes-vcf">Archivo de variantes (<a href="https://samtools.github.io/hts-specs/VCFv4.2.pdf">VCF</a>)</h4>
 <p>Archivo de texto que contiene información de metadata sobre el procesamiento de la data genómica, incluido el llamado de variantes y filtros.</p>
-<p>Incluye la información de posición en el genoma donde identifica variantes genéticas y la información de genotipo para cada muestra incuida.</p>
+<p>Incluye la información de posición en el genoma donde identifica variantes genéticas y la información de genotipo para cada muestra incluida.</p>
 <p><img src="images/clipboard-4268372313.png" class="img-fluid"></p>
 </section>
 </section>
@@ -311,23 +311,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Datos de genotipo</li>
 </ul>
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bcftools</span> view <span class="at">-H</span> VCF_file.vcf.gz <span class="kw">|</span> <span class="fu">less</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Revisando</p>
 <p>El archivo contiene SNPs e indels, nosotros estamos interesados en los SNPs.</p>
 <p>Hay diferentes programas que pueden usarse para filtrar archivos VCF, VCFtools es uno bastante útil para estos fines y sencillo de usar.</p>
 <pre><code>## Filtrado de VCF para conservar solo SNPs
 vcftools --vcf input_file.vcf --remove-indels --recode --recode-INFO-all --out SNPs_only</code></pre>
 <p>Además de conservar solo SNPs, adicionalmente podemos filtrar el archivo VCF en base a otros criterios que pueden ser indicadores de la calidad de la data.</p>
 <p>En esta etapa se han llevado a cabo otros pasos de filtrado de calidad de los reads y de los archivos de alineamiento. Dependiendo del tipo de información que uno genera y de la fuente también se pueden considerar otros parámetros, especialmente cuando se trabaja con genomas colectado de poblaciones.</p>
-<p>La data original se descargo siguiendo los pasos descritos en el script (github de Alex)</p>
-<p>Originalmente se decarga como VCF, pero debido a que es un archivo demasiado grande se convierte a formato bed, este ya no tiene información de depth o quality</p>
-<p>Revisando el archivo VCF</p>
-<p>algunas estadísticas del archivo de variantes</p>
-<p>Data faltante, covertura, frecuencia alélica, etc</p>
-<p>Esta data ya pasó control de calidad, por lo cual no es necesario pasar por esos pasos.</p>
-<ul>
-<li>Data faltante, Cobertura, minor allele frequency</li>
-</ul>
-<p>Un analisis inicial que podemos hacer es un PCA</p>
 </section>
 <section id="pca" class="level3">
 <h3 class="anchored" data-anchor-id="pca">PCA</h3>
