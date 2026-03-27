@@ -260,7 +260,7 @@ El archivo contiene SNPs e indels, nosotros estamos interesados en los SNPs.
 
 Hay diferentes programas que pueden usarse para filtrar archivos VCF, VCFtools es uno bastante útil para estos fines y sencillo de usar.
 
-```         
+``` bash
 ## Filtrado de VCF para conservar solo SNPs
 vcftools --vcf input_file.vcf --remove-indels --recode --recode-INFO-all --out SNPs_only
 ```
@@ -269,6 +269,27 @@ Además de conservar solo SNPs, adicionalmente podemos filtrar el archivo VCF en
 
 En esta etapa se han llevado a cabo otros pasos de filtrado de calidad de los reads y de los archivos de alineamiento. Dependiendo del tipo de información que uno genera y de la fuente también se pueden considerar otros parámetros, especialmente cuando se trabaja con genomas colectado de poblaciones.
 
+``` bash
+## Filtrado de variantes
+
+VCF=/path/to/vcf
+mindp=5
+maxmiss=0.9
+minmaf=0.05
+
+OUT=
+
+vcftools --gzvcf $VCF \
+	--min-alleles 2 --max-alleles 2 \
+	--min-meanDP $mindp --minDP $mindp \
+	--max-missing $maxmiss --maf $minmaf \
+	--out $OUT \
+	--recode --recode-INFO-all \
+	--stdout | bgzip -c > $OUT
+
+	tabix $OUT
+```
+
 ### PCA
 
 Primero filtraremos la data para reducir el numero de SNPs para filtrar los que están en LD
@@ -276,12 +297,3 @@ Primero filtraremos la data para reducir el numero de SNPs para filtrar los que 
 La data filtrada se puede procesar con plink2 para obtener los componentes principales
 
 Esto lo podemos plotear en R
-
-```{bash}
-
-
-```
-
-```{bash}
-
-```
