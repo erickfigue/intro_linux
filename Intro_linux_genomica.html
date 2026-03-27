@@ -293,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="información-de-los-datos-genómicos" class="level3">
 <h3 class="anchored" data-anchor-id="información-de-los-datos-genómicos">Información de los datos genómicos</h3>
-<p>En la carpeta X se encuentra un archivo vcf con 10 mil variantes genéticas del cromosoma 21. El archivo original fue descargado del repositorio del proyecto 1000 genomas, de este se tomaron 10K variantes genéticas aleatoriamente.</p>
+<p>En la carpeta data se encuentra la información asociada a un archivo vcf con 10 mil variantes genéticas del cromosoma 21. El archivo original fue descargado del repositorio del proyecto 1000 genomas, de este se tomaron 10K variantes genéticas aleatoriamente. El VCF puede descargarse de este <a href="https://www.dropbox.com/scl/fi/ojdvaajbx4lat9lz1dnjq/03192026_chr21_10KSNPs_sorted.vcf.gz?rlkey=6ny1sf1vrbg1gcpkug2khvg8k&amp;st=jmdvg31f&amp;dl=0">enlace</a>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Este es el enlace al repositorio que contiene el archivo VCF.</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Es un archivo de casi 20G, no se va a descargar nuevamente.</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -313,19 +313,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bcftools</span> view <span class="at">-H</span> VCF_file.vcf.gz <span class="kw">|</span> <span class="fu">less</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>El archivo contiene SNPs e indels, nosotros estamos interesados en los SNPs.</p>
 <p>Hay diferentes programas que pueden usarse para filtrar archivos VCF, VCFtools es uno bastante útil para estos fines y sencillo de usar.</p>
-<pre><code>## Filtrado de VCF para conservar solo SNPs
-vcftools --vcf input_file.vcf --remove-indels --recode --recode-INFO-all --out SNPs_only</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Filtrado de VCF para conservar solo SNPs</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">vcftools</span> <span class="at">--vcf</span> input_file.vcf <span class="at">--remove-indels</span> <span class="at">--recode</span> <span class="at">--recode-INFO-all</span> <span class="at">--out</span> SNPs_only</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Además de conservar solo SNPs, adicionalmente podemos filtrar el archivo VCF en base a otros criterios que pueden ser indicadores de la calidad de la data.</p>
 <p>En esta etapa se han llevado a cabo otros pasos de filtrado de calidad de los reads y de los archivos de alineamiento. Dependiendo del tipo de información que uno genera y de la fuente también se pueden considerar otros parámetros, especialmente cuando se trabaja con genomas colectado de poblaciones.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Filtrado de variantes</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="va">VCF</span><span class="op">=</span>/path/to/vcf</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="va">mindp</span><span class="op">=</span>5</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="va">maxmiss</span><span class="op">=</span>0.9</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="va">minmaf</span><span class="op">=</span>0.05</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="va">OUT</span><span class="op">=</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ex">vcftools</span> <span class="at">--gzvcf</span> <span class="va">$VCF</span> <span class="dt">\</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--min-alleles</span> 2 <span class="at">--max-alleles</span> 2 <span class="dt">\</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--min-meanDP</span> <span class="va">$mindp</span> <span class="at">--minDP</span> <span class="va">$mindp</span> <span class="dt">\</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--max-missing</span> <span class="va">$maxmiss</span> <span class="at">--maf</span> <span class="va">$minmaf</span> <span class="dt">\</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> <span class="va">$OUT</span> <span class="dt">\</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">--recode</span> <span class="at">--recode-INFO-all</span> <span class="dt">\</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">--stdout</span> <span class="kw">|</span> <span class="ex">bgzip</span> <span class="at">-c</span> <span class="op">&gt;</span> <span class="va">$OUT</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">tabix</span> <span class="va">$OUT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="pca" class="level3">
 <h3 class="anchored" data-anchor-id="pca">PCA</h3>
 <p>Primero filtraremos la data para reducir el numero de SNPs para filtrar los que están en LD</p>
 <p>La data filtrada se puede procesar con plink2 para obtener los componentes principales</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Modificar el script PCA.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Esto lo podemos plotear en R</p>
-<pre class="{bash}"><code>
-</code></pre>
-<pre class="{bash}"><code></code></pre>
 </section>
 </section>
 
