@@ -231,7 +231,7 @@ Incluye la información de posición en el genoma donde identifica variantes gen
 
 ### Información de los datos genómicos
 
-En la carpeta X se encuentra un archivo vcf con 10 mil variantes genéticas del cromosoma 21. El archivo original fue descargado del repositorio del proyecto 1000 genomas, de este se tomaron 10K variantes genéticas aleatoriamente.
+En la carpeta data se encuentra la información asociada a un archivo vcf con 10 mil variantes genéticas del cromosoma 21. El archivo original fue descargado del repositorio del proyecto 1000 genomas, de este se tomaron 10K variantes genéticas aleatoriamente. El VCF puede descargarse de este [enlace](https://www.dropbox.com/scl/fi/ojdvaajbx4lat9lz1dnjq/03192026_chr21_10KSNPs_sorted.vcf.gz?rlkey=6ny1sf1vrbg1gcpkug2khvg8k&st=jmdvg31f&dl=0).
 
 ``` bash
 ## Este es el enlace al repositorio que contiene el archivo VCF.
@@ -295,5 +295,9 @@ vcftools --gzvcf $VCF \
 Primero filtraremos la data para reducir el numero de SNPs para filtrar los que están en LD
 
 La data filtrada se puede procesar con plink2 para obtener los componentes principales
+
+``` bash
+## Modificar el script PCA.sh
+```
 
 Esto lo podemos plotear en R
