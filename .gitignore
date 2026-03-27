@@ -1,0 +1,20 @@
+# Ignore a specific file
+/scripts/*out
+#/data/20130606_g1k_3202_samples_ped_population.txt
+#/data/03192026_chr21_10KSNPs.vcf.gz
+#/data/CCDG_13607_B01_GRM_WGS_2019-02-19_chr21.recalibrated_variants.vcf.gz
+#/data/CCDG_13607_B01_GRM_WGS_2019-02-19_chr21.recalibrated_variants.vcf.gz.tbi
+#/data/subsample.vcf
+#/data/samples_x2504.txt
+#/raw_data/
+/data/03192026_chr21_10KSNPs_sorted.vcf.gz
+
+# Ignore a folder and its contents
+/analysis/
+
+
+# Ignore all .log files
+#*.log
+
+# Ignore a specific file type
+#*.env

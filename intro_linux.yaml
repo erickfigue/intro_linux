@@ -1,0 +1,14 @@
+name: intro_linux
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bcftools
+  - plink2
+  - vcftools
+  - r-base
+  - r-ggplot2
+  - r-tidyverse
+  - r-patchwork
+prefix: /hpc/group/magwenelab/ef169/programs/miniconda3/envs/popgen
