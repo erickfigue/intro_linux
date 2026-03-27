@@ -1,4 +1,5 @@
 ---
+status---
 title: "Introduccion a Linux para Genomica"
 format: html
 editor: visual
